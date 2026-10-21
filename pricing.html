@@ -33,8 +33,8 @@
 		.button-primary { color: white; background: var(--blue); }
 		.button-primary:hover { background: #0877bb; box-shadow: 0 10px 24px rgba(8,119,187,.22); }
 		.menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: white; font-size: 20px; }
-		.language-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: #f5fafc; }
-		.language-option { min-width: 38px; min-height: 32px; border: 0; border-radius: 999px; padding: 0 9px; color: #71818b; background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
+		.language-switch { position: relative; z-index: 2; display: inline-flex; flex: 0 0 auto; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: #f5fafc; }
+		.language-option { min-width: 40px; min-height: 40px; border: 0; border-radius: 999px; padding: 0 9px; color: #71818b; background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
 		.language-option:hover { color: var(--blue); }
 		.language-option[aria-pressed="true"] { color: white; background: var(--blue); box-shadow: 0 2px 7px rgba(15, 112, 162, .22); }
 		.hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(112deg, #f5fbfd, #e9f6fb); }
@@ -90,12 +90,13 @@
 		@media (max-width: 900px) { .nav { gap: 14px; } nav { gap: 13px; } .nav > .button { padding-inline: 13px; } .hero-inner { gap: 32px; } }
 		@media (max-width: 700px) {
 			.wrap { width: calc(100% - 32px); }
-			.nav { min-height: 68px; justify-content: space-between; }
+			.nav { min-height: 68px; justify-content: space-between; gap: 8px; }
+			.brand { min-width: 0; }
 			.brand img { width: 40px; height: 40px; }
 			.brand strong { font-size: 13px; }
 			.nav > .button { display: none; }
 			.menu-toggle { display: grid; place-items: center; }
-			.language-switch { margin-left: 8px; }
+			.language-switch { margin-left: 0; }
 			nav:not(.footer-nav) { position: absolute; top: 67px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; margin: 0; padding: 8px 18px 14px; border-bottom: 1px solid var(--line); background: white; }
 			nav.open { display: flex; flex-direction: column; }
 			nav:not(.footer-nav) a { padding: 12px 3px; border-bottom: 1px solid #edf2f4; }

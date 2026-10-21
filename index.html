@@ -56,8 +56,8 @@
 		.button-outline:hover { border-color: var(--blue); }
 		.arrow { font-size: 17px; line-height: 1; }
 		.menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 4px; background: white; color: var(--ink); font-size: 22px; cursor: pointer; }
-		.language-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: #f5fafc; }
-		.language-option { min-width: 38px; min-height: 32px; border: 0; border-radius: 999px; padding: 0 9px; color: #71818b; background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
+		.language-switch { position: relative; z-index: 2; display: inline-flex; flex: 0 0 auto; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: #f5fafc; }
+		.language-option { min-width: 40px; min-height: 40px; border: 0; border-radius: 999px; padding: 0 9px; color: #71818b; background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
 		.language-option:hover { color: var(--blue); }
 		.language-option[aria-pressed="true"] { color: white; background: var(--blue); box-shadow: 0 2px 7px rgba(15, 112, 162, .22); }
 
@@ -188,13 +188,15 @@
 			html { scroll-padding-top: 75px; }
 			.wrap { width: min(100% - 36px, 540px); }
 			.topline { font-size: 10px; }
-			.nav { min-height: 70px; }
+			.nav { min-height: 70px; gap: 8px; }
+			.brand { min-width: 0; }
+			.brand-name { min-width: 0; }
 			.brand img { width: 42px; height: 42px; }
 			.brand-name strong { font-size: 15px; }
 			.brand-name small { font-size: 9px; }
 			.nav > .button { display: none; }
 			.menu-toggle { display: grid; place-items: center; }
-			.language-switch { margin-left: 8px; }
+			.language-switch { margin-left: 0; }
 			.nav-links { position: absolute; top: 69px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; margin: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--line); background: #fff; box-shadow: 0 12px 18px rgba(23,63,86,.08); }
 			.nav-links.open { display: flex; flex-direction: column; }
 			.nav-links a { padding: 13px 3px; border-bottom: 1px solid #edf2f4; font-size: 13px; }
