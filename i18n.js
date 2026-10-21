@@ -64,10 +64,33 @@
 				'We will confirm the scope of work, frequency, and service details.',
 				'We will arrive at the agreed time so you can focus on your work.'
 			],
+			'#faq .section-heading .eyebrow': ['Frequently asked questions'],
+			'#faq .section-heading h2': ['Before you request a quote'],
+			'#faq .section-heading p': ['Quick answers to help you plan the service and confirm your location.'],
+			'.faq-item summary': [
+				'How is the service price determined?',
+				'Can I request one-time or regular cleaning?',
+				'How can I check whether you serve my address?',
+				'What information should I include in my request?'
+			],
+			'.faq-answer': [
+				'Quotes are prepared based on the area, scope of work, and service frequency. We confirm the final amount after discussing the details.',
+				'Yes. You can request a one-time service or a regular schedule that suits you.',
+				'Include the property address in your request and we will confirm whether service is available at your location.',
+				'Include the service you need, area, address, and preferred frequency. The request planner can copy these details into the form for you.'
+			],
 			'.contact-copy .eyebrow': ['Get in touch'],
 			'.contact-copy h2': ['The right service for your space starts here.'],
 			'.contact-copy > p': ['Fill out the short form and we will prepare a quote. Tell us what your office needs.'],
 			'.contact-points > span': ['<b>✓</b> Service for business spaces', '<b>✓</b> Schedule agreed in advance', '<b>✓</b> A tailored quote'],
+			'.quote-planner h3': ['Request planner'],
+			'.quote-planner > p': ['Add a few details. This does not calculate a price, but it makes the request form easier to complete.'],
+			'.planner-field label': ['Service', 'Area (m²)', 'Frequency', 'Property address'],
+			'#planner-service option': ['Choose a service', 'Office cleaning', 'Window and glass cleaning', 'Carpet cleaning', 'General cleaning', 'Other / consultation'],
+			'#planner-frequency option': ['Not sure yet', 'One time', 'Daily', 'Once a week', 'Once a month'],
+			'#planner-area': { placeholder: 'e.g. 120' },
+			'#planner-address': { placeholder: 'Street, neighborhood, city' },
+			'#planner-fill': ['Add details to request <span aria-hidden="true">↓</span>'],
 			'#contact-form label': ['Name / company', 'Phone number', 'Service needed', 'Additional details'],
 			'#name': { placeholder: 'Your name or company' },
 			'#service option': ['Choose a service', 'Office cleaning', 'Window and glass cleaning', 'Carpet cleaning', 'General cleaning', 'Other / consultation'],
