@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start City Management Backend",
+			"type": "shell",
+			"command": "${env:LOCALAPPDATA}\\Programs\\nodejs-v24.20.0\\node-v24.20.0-win-x64\\npm.cmd",
+			"args": [
+				"start"
+			],
+			"isBackground": true,
+			"options": {
+				"env": {
+					"HOST": "0.0.0.0",
+					"NODE_ENV": "development"
+				}
+			},
+			"problemMatcher": []
+		}
+	]
+}

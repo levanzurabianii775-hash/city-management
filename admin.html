@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#173f56">
+	<title>ადმინისტრაცია — City Management Group</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root { --ink: #173f56; --deep: #123448; --blue: #168bd2; --sky: #e8f6fc; --paper: #fff; --mist: #f5f9fb; --muted: #607482; --line: #dce8ed; --danger: #ad3d3d; --font: "DM Sans", "Noto Sans Georgian", sans-serif; }
+		* { box-sizing: border-box; }
+		body { margin: 0; min-height: 100vh; color: var(--ink); background: #f3f7f9; font-family: var(--font); }
+		button, input, select { font: inherit; }
+		a { color: inherit; text-decoration: none; }
+		.wrap { width: min(1200px, calc(100% - 40px)); margin-inline: auto; }
+		header { background: var(--deep); color: white; }
+		.header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+		.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; }
+		.brand img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+		.brand small { display: block; margin-top: 3px; color: #b8ced8; font-size: 10px; font-weight: 500; }
+		.header-link { color: #c6e6f4; font-size: 12px; }
+		main { padding-block: 40px 70px; }
+		h1 { margin: 0; font-size: 27px; line-height: 1.35; }
+		.subtitle { margin: 7px 0 25px; color: var(--muted); font-size: 13px; }
+		.panel { max-width: 430px; margin: 44px auto; padding: 28px; border: 1px solid var(--line); background: white; }
+		.panel h1 { margin-bottom: 8px; font-size: 23px; }
+		.panel p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+		.field { display: grid; gap: 7px; margin-top: 16px; }
+		.field label { color: #536b78; font-size: 11px; font-weight: 700; }
+		.field input, .toolbar input, .toolbar select { min-height: 42px; width: 100%; border: 1px solid #d7e4e9; border-radius: 3px; outline: 0; padding: 10px 12px; color: var(--ink); background: white; font-size: 13px; }
+		.field input:focus, .toolbar input:focus, .toolbar select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px #168bd21f; }
+		.button { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; border-radius: 3px; padding: 0 15px; color: white; background: var(--blue); font-size: 12px; font-weight: 700; cursor: pointer; }
+		.button:hover { background: #0877bb; }
+		.button:disabled { opacity: .55; cursor: wait; }
+		.button-quiet { border-color: var(--line); color: var(--ink); background: white; }
+		.button-quiet:hover { background: var(--sky); }
+		.button-danger { border-color: #f0d7d7; color: var(--danger); background: white; }
+		.button-danger:hover { background: #fff2f2; }
+		#status { min-height: 22px; margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+		#status[data-kind="error"] { color: var(--danger); }
+		#status[data-kind="success"] { color: #13764c; }
+		.dashboard[hidden], .login[hidden], .setup[hidden] { display: none; }
+		.toolbar { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin: 22px 0 16px; }
+		.filters { display: flex; flex: 1; gap: 10px; }
+		.filters input { max-width: 360px; }
+		.filters select { max-width: 190px; }
+		.actions { display: flex; gap: 8px; }
+		.stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 20px 0; border: 1px solid var(--line); background: white; }
+		.stat { padding: 16px 18px; border-right: 1px solid var(--line); }
+		.stat:last-child { border: 0; }
+		.stat span { display: block; color: var(--muted); font-size: 11px; }
+		.stat strong { display: block; margin-top: 5px; color: var(--ink); font-size: 22px; }
+		.table-wrap { overflow-x: auto; border: 1px solid var(--line); background: white; }
+		table { width: 100%; min-width: 850px; border-collapse: collapse; text-align: left; }
+		th { padding: 12px 14px; border-bottom: 1px solid var(--line); color: #667c87; background: #f8fbfc; font-size: 10px; font-weight: 700; white-space: nowrap; }
+		td { padding: 13px 14px; border-bottom: 1px solid #edf2f4; color: #405c6b; font-size: 12px; vertical-align: top; }
+		tr:last-child td { border-bottom: 0; }
+		td strong { display: block; color: var(--ink); }
+		td small { display: block; max-width: 240px; margin-top: 4px; color: #71838c; line-height: 1.6; overflow-wrap: anywhere; }
+		td a { color: var(--blue); white-space: nowrap; }
+		td select { max-width: 145px; min-height: 36px; border: 1px solid var(--line); border-radius: 3px; padding: 6px; color: var(--ink); background: white; font-size: 11px; }
+		.empty { padding: 35px 18px; color: var(--muted); text-align: center; font-size: 13px; }
+		@media (max-width: 760px) {
+			.wrap { width: calc(100% - 28px); }
+			main { padding-top: 28px; }
+			.toolbar { align-items: stretch; flex-direction: column; }
+			.filters { flex-direction: column; }
+			.filters input, .filters select { max-width: none; }
+			.actions .button { flex: 1; }
+			.stats { margin-block: 16px; }
+			.stat { padding: 13px 10px; }
+			.stat span { font-size: 10px; }
+			.stat strong { font-size: 19px; }
+			.panel { margin-top: 28px; padding: 21px; }
+			.table-wrap { overflow: visible; border: 0; background: transparent; }
+			table, tbody { display: block; width: 100%; min-width: 0; }
+			thead { display: none; }
+			tbody { display: grid; gap: 10px; }
+			tbody tr { display: grid; grid-template-columns: 1fr; border: 1px solid var(--line); padding: 7px 13px; background: white; }
+			tbody td { display: grid; grid-template-columns: 88px minmax(0, 1fr); align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #edf2f4; overflow-wrap: anywhere; }
+			tbody td::before { content: attr(data-label); color: #71838c; font-size: 10px; font-weight: 700; }
+			tbody td:nth-child(2) { display: block; }
+			tbody td:nth-child(2)::before { display: block; margin-bottom: 5px; }
+			tbody td:nth-child(2) small { max-width: none; }
+			tbody td:last-child { border-bottom: 0; }
+			tbody td select { width: 100%; max-width: none; }
+			tbody td .button { justify-self: start; }
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="wrap header-inner">
+			<a class="brand" href="/" aria-label="მთავარ გვერდზე დაბრუნება"><img src="/260749047_6916016825089971_8964684175723472677_n.png" alt=""><span>City Management Group<small>მოთხოვნების მართვა</small></span></a>
+			<a class="header-link" href="/">საიტზე დაბრუნება</a>
+		</div>
+	</header>
+	<main class="wrap">
+		<section class="panel login" id="login-panel" hidden>
+			<h1>ადმინისტრატორის შესვლა</h1>
+			<p>მოთხოვნების სანახავად შეიყვანეთ ადმინისტრატორის მონაცემები.</p>
+			<form id="login-form">
+				<div class="field"><label for="username">მომხმარებელი</label><input id="username" name="username" autocomplete="username" required></div>
+				<div class="field"><label for="password">პაროლი</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+				<div class="field"><button class="button" type="submit">შესვლა</button></div>
+			</form>
+			<p id="login-status" role="status" aria-live="polite"></p>
+		</section>
+		<section class="panel setup" id="setup-panel" hidden>
+			<h1>ადმინისტრაცია მოსამზადებელია</h1>
+			<p>შეავსეთ პროექტის `.env` ფაილი: მიუთითეთ უნიკალური, მინიმუმ 15-სიმბოლოიანი ADMIN_PASSWORD. ელფოსტისთვის დაამატეთ SMTP მომხმარებელი, App Password და მიმღები.</p>
+			<p>კონფიგურაციის შემდეგ გადატვირთეთ სერვერი და განაახლეთ ეს გვერდი.</p>
+		</section>
+		<section class="dashboard" id="dashboard" hidden>
+			<h1>მოთხოვნები</h1>
+			<p class="subtitle">შემოსული შეკვეთები და დასუფთავების მოთხოვნები</p>
+			<div class="stats" aria-live="polite">
+				<div class="stat"><span>ახალი</span><strong id="count-new">0</strong></div>
+				<div class="stat"><span>მიმდინარე</span><strong id="count-progress">0</strong></div>
+				<div class="stat"><span>დასრულებული</span><strong id="count-completed">0</strong></div>
+			</div>
+			<div class="toolbar">
+				<form class="filters" id="filters">
+					<input id="search" type="search" placeholder="ძიება სახელით, ტელეფონით ან დეტალით" aria-label="მოთხოვნების ძიება">
+					<select id="status-filter" aria-label="სტატუსით გაფილტვრა"><option value="">ყველა სტატუსი</option><option value="new">ახალი</option><option value="in_progress">მიმდინარე</option><option value="completed">დასრულებული</option></select>
+					<button class="button button-quiet" type="submit">ძებნა</button>
+				</form>
+				<div class="actions"><button class="button button-quiet" id="export" type="button">CSV ექსპორტი</button><button class="button button-quiet" id="refresh" type="button">განახლება</button><button class="button" id="logout" type="button">გასვლა</button></div>
+			</div>
+			<p id="dashboard-status" role="status" aria-live="polite"></p>
+			<div class="table-wrap">
+				<table>
+					<thead><tr><th>თარიღი</th><th>კლიენტი</th><th>ტელეფონი</th><th>მომსახურება</th><th>სტატუსი</th><th>მოქმედება</th></tr></thead>
+					<tbody id="requests-body"></tbody>
+				</table>
+				<div class="empty" id="empty-state" hidden>მოთხოვნები ვერ მოიძებნა.</div>
+			</div>
+		</section>
+	</main>
+	<script>
+		const loginPanel = document.querySelector('#login-panel');
+		const setupPanel = document.querySelector('#setup-panel');
+		const dashboard = document.querySelector('#dashboard');
+		const loginStatus = document.querySelector('#login-status');
+		const dashboardStatus = document.querySelector('#dashboard-status');
+		const requestsBody = document.querySelector('#requests-body');
+		const statusLabels = { new: 'ახალი', in_progress: 'მიმდინარე', completed: 'დასრულებული' };
+		let visibleRequests = [];
+
+		async function api(path, options = {}) {
+			const response = await fetch(path, { credentials: 'same-origin', ...options });
+			const text = await response.text();
+			let result = {};
+			try { result = text ? JSON.parse(text) : {}; } catch { throw new Error('სერვერის პასუხი ვერ წავიკითხე. განაახლეთ გვერდი.'); }
+			if (!response.ok) throw new Error(result.error || 'მოთხოვნა ვერ შესრულდა.');
+			return result;
+		}
+
+		function showPanel(panel) {
+			loginPanel.hidden = panel !== loginPanel;
+			setupPanel.hidden = panel !== setupPanel;
+			dashboard.hidden = panel !== dashboard;
+		}
+
+		function setStatus(element, message, kind = '') {
+			element.textContent = message;
+			element.dataset.kind = kind;
+		}
+
+		function safeCsv(value) {
+			let text = String(value ?? '').replace(/[\r\n]+/g, ' ');
+			if (/^[=+\-@\t]/.test(text)) text = `'${text}`;
+			return `"${text.replace(/"/g, '""')}"`;
+		}
+
+		function renderRows(requests) {
+			visibleRequests = requests;
+			requestsBody.replaceChildren();
+			document.querySelector('#empty-state').hidden = requests.length > 0;
+			for (const request of requests) {
+				const row = document.createElement('tr');
+				const date = document.createElement('td');
+				date.dataset.label = 'თარიღი';
+				date.textContent = new Date(request.createdAt).toLocaleString('ka-GE');
+				const customer = document.createElement('td');
+				customer.dataset.label = 'კლიენტი';
+				const name = document.createElement('strong');
+				name.textContent = request.name;
+				const details = document.createElement('small');
+				details.textContent = request.details || 'დამატებითი ინფორმაცია არ არის';
+				customer.append(name, details);
+				const phoneCell = document.createElement('td');
+				phoneCell.dataset.label = 'ტელეფონი';
+				const phone = document.createElement('a');
+				phone.href = `tel:${request.phone.replace(/[^+\d]/g, '')}`;
+				phone.textContent = request.phone;
+				phoneCell.append(phone);
+				const service = document.createElement('td');
+				service.dataset.label = 'მომსახურება';
+				service.textContent = request.service;
+				const statusCell = document.createElement('td');
+				statusCell.dataset.label = 'სტატუსი';
+				const select = document.createElement('select');
+				select.setAttribute('aria-label', `${request.name} — სტატუსი`);
+				for (const [value, label] of Object.entries(statusLabels)) {
+					const option = document.createElement('option');
+					option.value = value;
+					option.textContent = label;
+					option.selected = (request.status || 'new') === value;
+					select.append(option);
+				}
+				select.addEventListener('change', async () => {
+					select.disabled = true;
+					try {
+						await api(`/api/admin/requests/${encodeURIComponent(request.id)}`, {
+							method: 'PATCH',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ status: select.value })
+						});
+						setStatus(dashboardStatus, 'სტატუსი განახლდა.', 'success');
+						await loadRequests();
+					} catch (error) {
+						setStatus(dashboardStatus, error.message, 'error');
+						select.disabled = false;
+					}
+				});
+				statusCell.append(select);
+				const actionCell = document.createElement('td');
+				actionCell.dataset.label = 'მოქმედება';
+				const remove = document.createElement('button');
+				remove.type = 'button';
+				remove.className = 'button button-danger';
+				remove.textContent = 'წაშლა';
+				remove.addEventListener('click', async () => {
+					if (!window.confirm('წავშალო ეს მოთხოვნა?')) return;
+					remove.disabled = true;
+					try {
+						await api(`/api/admin/requests/${encodeURIComponent(request.id)}`, { method: 'DELETE' });
+						setStatus(dashboardStatus, 'მოთხოვნა წაიშალა.', 'success');
+						await loadRequests();
+					} catch (error) {
+						setStatus(dashboardStatus, error.message, 'error');
+						remove.disabled = false;
+					}
+				});
+				actionCell.append(remove);
+				row.append(date, customer, phoneCell, service, statusCell, actionCell);
+				requestsBody.append(row);
+			}
+		}
+
+		async function loadRequests() {
+			dashboardStatus.textContent = 'იტვირთება...';
+			const query = new URLSearchParams();
+			if (document.querySelector('#search').value.trim()) query.set('q', document.querySelector('#search').value.trim());
+			if (document.querySelector('#status-filter').value) query.set('status', document.querySelector('#status-filter').value);
+			try {
+				const data = await api(`/api/admin/requests?${query}`);
+				renderRows(data.requests);
+				document.querySelector('#count-new').textContent = data.stats.new;
+				document.querySelector('#count-progress').textContent = data.stats.in_progress;
+				document.querySelector('#count-completed').textContent = data.stats.completed;
+				const emailMessages = {
+					ready: 'ელფოსტის შეტყობინებები მზადაა.',
+					checking: 'SMTP კავშირი მოწმდება...',
+					error: 'SMTP კავშირი ვერ შედგა. გადაამოწმეთ .env პარამეტრები.',
+					unconfigured: 'ელფოსტა მოსაწყობია .env ფაილში.'
+				};
+				setStatus(dashboardStatus, emailMessages[data.emailStatus] || 'ელფოსტის სტატუსი უცნობია.', data.emailStatus === 'error' ? 'error' : '');
+			} catch (error) {
+				setStatus(dashboardStatus, error.message, 'error');
+			}
+		}
+
+		document.querySelector('#login-form').addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const loginForm = event.currentTarget;
+			const form = new FormData(loginForm);
+			const button = loginForm.querySelector('button');
+			button.disabled = true;
+			setStatus(loginStatus, 'მოწმდება...');
+			try {
+				await api('/api/admin/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ username: form.get('username'), password: form.get('password') })
+				});
+				loginForm.reset();
+				showPanel(dashboard);
+				await loadRequests();
+			} catch (error) {
+				setStatus(loginStatus, error.message, 'error');
+			} finally {
+				button.disabled = false;
+			}
+		});
+
+		document.querySelector('#filters').addEventListener('submit', (event) => { event.preventDefault(); loadRequests(); });
+		document.querySelector('#refresh').addEventListener('click', loadRequests);
+		document.querySelector('#export').addEventListener('click', () => {
+			const headers = ['თარიღი', 'სახელი / კომპანია', 'ტელეფონი', 'მომსახურება', 'სტატუსი', 'დეტალები'];
+			const rows = visibleRequests.map((request) => [request.createdAt, request.name, request.phone, request.service, statusLabels[request.status || 'new'], request.details]);
+			const csv = '\uFEFF' + [headers, ...rows].map((row) => row.map(safeCsv).join(',')).join('\r\n');
+			const link = document.createElement('a');
+			link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+			link.download = 'requests.csv';
+			link.click();
+			URL.revokeObjectURL(link.href);
+		});
+		document.querySelector('#logout').addEventListener('click', async () => {
+			try { await api('/api/admin/logout', { method: 'POST' }); } catch {}
+			showPanel(loginPanel);
+		});
+
+		async function boot() {
+			try {
+				const session = await api('/api/admin/session');
+				showPanel(session.authenticated ? dashboard : loginPanel);
+				if (session.authenticated) await loadRequests();
+			} catch (error) {
+				if (/კონფიგურირებული/.test(error.message)) showPanel(setupPanel);
+				else {
+					showPanel(loginPanel);
+					setStatus(loginStatus, error.message, 'error');
+				}
+			}
+		}
+		boot();
+	</script>
+</body>
+</html>

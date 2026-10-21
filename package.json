@@ -1,0 +1,17 @@
+{
+	"name": "city-management-group-site",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"dependencies": {
+		"dotenv": "^18.0.8",
+		"nodemailer": "^10.1.2",
+		"pg": "^8.23.1"
+	}
+}
