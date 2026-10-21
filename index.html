@@ -56,6 +56,8 @@
 		.button-outline:hover { border-color: var(--blue); }
 		.arrow { font-size: 17px; line-height: 1; }
 		.menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 4px; background: white; color: var(--ink); font-size: 22px; cursor: pointer; }
+		.language-toggle { min-height: 40px; min-width: 48px; border: 1px solid var(--line); border-radius: 7px; padding: 0 11px; color: var(--ink); background: white; font-size: 11px; font-weight: 800; cursor: pointer; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+		.language-toggle:hover { border-color: #a9d8eb; color: var(--blue); background: #f6fcfe; }
 
 		.hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(112deg, #f6fbfd 0%, #f6fbfd 55%, #e8f6fc 100%); }
 		.hero::before { position: absolute; z-index: -1; top: -220px; right: -160px; width: 600px; aspect-ratio: 1; border-radius: 50%; content: ""; background: radial-gradient(circle, rgba(68,184,239,.17), rgba(68,184,239,0) 68%); animation: ambient-drift 14s ease-in-out infinite alternate; }
@@ -190,6 +192,7 @@
 			.brand-name small { font-size: 9px; }
 			.nav > .button { display: none; }
 			.menu-toggle { display: grid; place-items: center; }
+			.language-toggle { margin-left: 8px; }
 			.nav-links { position: absolute; top: 69px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; margin: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--line); background: #fff; box-shadow: 0 12px 18px rgba(23,63,86,.08); }
 			.nav-links.open { display: flex; flex-direction: column; }
 			.nav-links a { padding: 13px 3px; border-bottom: 1px solid #edf2f4; font-size: 13px; }
@@ -261,6 +264,7 @@
 			</nav>
 			<a class="button button-primary" href="#contact">შეთავაზების მოთხოვნა <span class="arrow" aria-hidden="true">↗</span></a>
 			<button class="menu-toggle" type="button" aria-label="მენიუს გახსნა" aria-expanded="false" aria-controls="main-nav">☰</button>
+			<button class="language-toggle" type="button" aria-label="Switch language to English">EN</button>
 		</div>
 	</header>
 
@@ -384,6 +388,7 @@
 		<div class="wrap footer-bottom"><span>© <span id="year"></span> City management group. ყველა უფლება დაცულია.</span><span>სისუფთავე თქვენი სივრცისთვის.</span></div>
 	</footer>
 
+	<script src="/i18n.js"></script>
 	<script>
 		const menuButton = document.querySelector('.menu-toggle');
 		const menu = document.querySelector('.nav-links');

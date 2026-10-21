@@ -293,6 +293,7 @@ async function serveStatic(pathname, response) {
 		'/pricing.html': ['pricing.html', 'text/html; charset=utf-8'],
 		'/admin': ['admin.html', 'text/html; charset=utf-8'],
 		'/admin.html': ['admin.html', 'text/html; charset=utf-8'],
+		'/i18n.js': ['i18n.js', 'text/javascript; charset=utf-8'],
 		'/658387698_1547267307403600_8734942271708288651_n.jpg': [
 			'658387698_1547267307403600_8734942271708288651_n.jpg',
 			'image/jpeg'
