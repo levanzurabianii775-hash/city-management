@@ -47,7 +47,7 @@
 		.nav-links a:hover { color: var(--blue); }
 		.button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 11px; border: 1px solid transparent; border-radius: 7px; padding: 0 21px; font-size: 13px; font-weight: 700; transition: background .25s var(--ease-out), transform .25s var(--ease-out), border-color .25s ease, box-shadow .25s ease; cursor: pointer; }
 		.button:hover { transform: translateY(-3px); }
-		.button:focus-visible, a:focus-visible, .menu-toggle:focus-visible { outline: 3px solid #69c8f1; outline-offset: 3px; }
+		.button:focus-visible, a:focus-visible, .menu-toggle:focus-visible, .language-option:focus-visible { outline: 3px solid #69c8f1; outline-offset: 3px; }
 		.button-primary { color: #fff; background: var(--blue); }
 		.button-primary:hover { background: #0877bb; box-shadow: 0 10px 24px rgba(8,119,187,.22); }
 		.button-light { color: var(--ink); background: #fff; }
@@ -56,8 +56,10 @@
 		.button-outline:hover { border-color: var(--blue); }
 		.arrow { font-size: 17px; line-height: 1; }
 		.menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 4px; background: white; color: var(--ink); font-size: 22px; cursor: pointer; }
-		.language-toggle { min-height: 40px; min-width: 48px; border: 1px solid var(--line); border-radius: 7px; padding: 0 11px; color: var(--ink); background: white; font-size: 11px; font-weight: 800; cursor: pointer; transition: color .2s ease, border-color .2s ease, background .2s ease; }
-		.language-toggle:hover { border-color: #a9d8eb; color: var(--blue); background: #f6fcfe; }
+		.language-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: #f5fafc; }
+		.language-option { min-width: 38px; min-height: 32px; border: 0; border-radius: 999px; padding: 0 9px; color: #71818b; background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
+		.language-option:hover { color: var(--blue); }
+		.language-option[aria-pressed="true"] { color: white; background: var(--blue); box-shadow: 0 2px 7px rgba(15, 112, 162, .22); }
 
 		.hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(112deg, #f6fbfd 0%, #f6fbfd 55%, #e8f6fc 100%); }
 		.hero::before { position: absolute; z-index: -1; top: -220px; right: -160px; width: 600px; aspect-ratio: 1; border-radius: 50%; content: ""; background: radial-gradient(circle, rgba(68,184,239,.17), rgba(68,184,239,0) 68%); animation: ambient-drift 14s ease-in-out infinite alternate; }
@@ -192,7 +194,7 @@
 			.brand-name small { font-size: 9px; }
 			.nav > .button { display: none; }
 			.menu-toggle { display: grid; place-items: center; }
-			.language-toggle { margin-left: 8px; }
+			.language-switch { margin-left: 8px; }
 			.nav-links { position: absolute; top: 69px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; margin: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--line); background: #fff; box-shadow: 0 12px 18px rgba(23,63,86,.08); }
 			.nav-links.open { display: flex; flex-direction: column; }
 			.nav-links a { padding: 13px 3px; border-bottom: 1px solid #edf2f4; font-size: 13px; }
@@ -255,7 +257,7 @@
 		.nav-links a::after { position: absolute; right: 0; bottom: 1px; left: 0; height: 2px; border-radius: 2px; content: ""; background: var(--blue-bright); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
 		.nav-links a:hover::after { transform: scaleX(1); }
 		.button { border-radius: 999px; }
-		.menu-toggle, .language-toggle { border-radius: 999px; }
+		.menu-toggle { border-radius: 999px; }
 		.hero { background: radial-gradient(ellipse at 86% 20%, rgba(65,188,232,.15), transparent 36%), linear-gradient(120deg, #f7fcfe 0%, #f1f9fc 58%, #e7f5fb 100%); }
 		.hero-inner { padding-block: 72px 82px; }
 		.hero h1 { font-size: clamp(40px, 5.3vw, 68px); line-height: 1.13; letter-spacing: -.8px; }
@@ -318,7 +320,7 @@
 			</nav>
 			<a class="button button-primary" href="#contact">შეთავაზების მოთხოვნა <span class="arrow" aria-hidden="true">↗</span></a>
 			<button class="menu-toggle" type="button" aria-label="მენიუს გახსნა" aria-expanded="false" aria-controls="main-nav">☰</button>
-			<button class="language-toggle" type="button" aria-label="Switch language to English">EN</button>
+			<div class="language-switch" role="group" aria-label="აირჩიეთ ენა"><button class="language-option" type="button" data-language="ka" aria-pressed="true">KA</button><button class="language-option" type="button" data-language="en" aria-pressed="false">EN</button></div>
 		</div>
 	</header>
 

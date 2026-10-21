@@ -215,11 +215,11 @@
 			for (const [selector, value] of Object.entries(english[page])) update(selector, value);
 			document.documentElement.lang = 'en';
 		}
-		const toggle = document.querySelector('.language-toggle');
-		if (toggle) {
-			toggle.textContent = language === 'ka' ? 'EN' : 'ქარ';
-			toggle.setAttribute('aria-label', language === 'ka' ? 'Switch language to English' : 'ენის შეცვლა ქართულზე');
-		}
+		const languageSwitch = document.querySelector('.language-switch');
+		if (languageSwitch) languageSwitch.setAttribute('aria-label', language === 'en' ? 'Choose language' : 'აირჩიეთ ენა');
+		document.querySelectorAll('.language-option').forEach((button) => {
+			button.setAttribute('aria-pressed', String(button.dataset.language === language));
+		});
 		const menu = document.querySelector('#main-nav');
 		if (menu) menu.setAttribute('aria-label', language === 'en' ? 'Main navigation' : 'მთავარი ნავიგაცია');
 		const footer = document.querySelector('.footer-nav, .footer-links');
@@ -231,10 +231,12 @@
 		syncDynamicCopy();
 	}
 
-	document.querySelector('.language-toggle')?.addEventListener('click', () => {
-		language = language === 'ka' ? 'en' : 'ka';
-		window.siteLanguage = language;
-		apply();
+	document.querySelectorAll('.language-option').forEach((button) => {
+		button.addEventListener('click', () => {
+			language = button.dataset.language === 'en' ? 'en' : 'ka';
+			window.siteLanguage = language;
+			apply();
+		});
 	});
 	const status = document.querySelector('#form-status');
 	const submit = document.querySelector('#contact-form button[type="submit"]');
