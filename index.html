@@ -160,9 +160,10 @@
 		.field textarea { min-height: 84px; resize: vertical; }
 		.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 4px rgba(22,139,210,.12); }
 		.contact-form .button { width: 100%; }
-		.form-hint { grid-column: 1 / -1; margin: -5px 0 0; color: #71838c; font-size: 10px; line-height: 1.7; }
-		.form-hint[data-state="success"] { color: #13764c; }
-		.form-hint[data-state="error"] { color: #a33333; }
+		.form-hint { position: fixed; z-index: 100; top: max(18px, env(safe-area-inset-top)); left: 50%; width: min(440px, calc(100vw - 32px)); margin: 0; padding: 16px 19px; border: 1px solid transparent; border-radius: 14px; color: #173f56; background: #fff; box-shadow: 0 18px 54px rgba(8,36,52,.22); font-size: 13px; font-weight: 600; line-height: 1.6; opacity: 0; visibility: hidden; transform: translate(-50%, -14px); transition: opacity .35s ease, transform .35s cubic-bezier(.2,.75,.25,1), visibility .35s; pointer-events: none; }
+		.form-hint[data-state="success"], .form-hint[data-state="error"] { opacity: 1; visibility: visible; transform: translate(-50%, 0); pointer-events: auto; }
+		.form-hint[data-state="success"] { border-color: #b8e4d0; color: #13764c; }
+		.form-hint[data-state="error"] { border-color: #f0c9c9; color: #a33333; }
 		.location-card { display: grid; grid-template-columns: .7fr 1.3fr; gap: 28px; align-items: center; margin-top: 48px; padding: 22px; border: 1px solid rgba(255,255,255,.18); border-radius: 18px; background: rgba(255,255,255,.07); }
 		.location-copy .eyebrow { color: #7ed8ff; }
 		.location-copy h3 { margin: 12px 0 8px; color: white; font-size: 22px; }
@@ -517,6 +518,7 @@
 		if (serviceNames[requestedService]) document.querySelector('#service').value = serviceNames[requestedService];
 		const contactForm = document.querySelector('#contact-form');
 		const formStatus = document.querySelector('#form-status');
+		let formStatusTimer;
 		contactForm.addEventListener('submit', async (event) => {
 			event.preventDefault();
 			const submitButton = contactForm.querySelector('button[type="submit"]');
@@ -551,6 +553,8 @@
 			} finally {
 				submitButton.disabled = false;
 				submitButton.innerHTML = 'მოთხოვნის გაგზავნა <span class="arrow" aria-hidden="true">↗</span>';
+				window.clearTimeout(formStatusTimer);
+				formStatusTimer = window.setTimeout(() => { formStatus.dataset.state = ''; }, 7000);
 			}
 		});
 
