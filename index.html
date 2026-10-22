@@ -152,16 +152,6 @@
 		.contact-points { display: grid; gap: 12px; margin-top: 28px; color: #e1f2fa; font-size: 12px; }
 		.contact-points span { display: flex; align-items: center; gap: 10px; }
 		.contact-points b { color: #7ed8ff; font-size: 16px; }
-		.quote-planner { display: grid; gap: 13px; margin-top: 30px; padding: 20px; border: 1px solid rgba(255,255,255,.2); border-radius: 15px; background: rgba(255,255,255,.08); }
-		.quote-planner h3 { margin: 0; color: white; font-size: 17px; }
-		.quote-planner > p { margin: -7px 0 2px; color: #c1d5df; font-size: 11px; line-height: 1.7; }
-		.planner-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-		.planner-field { display: grid; gap: 6px; }
-		.planner-field-wide { grid-column: 1 / -1; }
-		.planner-field label { color: #d9ebf2; font-size: 10px; font-weight: 700; }
-		.planner-field input, .planner-field select { width: 100%; min-height: 42px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; padding: 9px 10px; color: var(--ink); background: #fff; font: inherit; font-size: 12px; }
-		.planner-field input:focus, .planner-field select:focus { outline: 3px solid rgba(105,200,241,.45); outline-offset: 1px; }
-		.quote-planner .button { justify-self: start; min-height: 42px; padding-inline: 16px; font-size: 11px; }
 		.contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 28px; border: 1px solid rgba(255,255,255,.3); border-radius: 12px; color: var(--ink); background: #fff; box-shadow: 0 24px 60px rgba(4,26,39,.2); }
 		.field { display: grid; gap: 7px; }
 		.field-wide { grid-column: 1 / -1; }
@@ -260,7 +250,6 @@
 			.contact-layout { grid-template-columns: 1fr; gap: 30px; }
 			.contact-copy h2 { font-size: 34px; }
 			.contact-form { padding: 19px; }
-			.quote-planner { margin-top: 24px; padding: 17px; }
 			.location-card { grid-template-columns: 1fr; gap: 20px; margin-top: 30px; padding: 18px; }
 			.location-map iframe { height: 250px; }
 			.footer-main { align-items: flex-start; flex-direction: column; padding-block: 26px; }
@@ -453,7 +442,7 @@
 					<details class="faq-item"><summary>როგორ განისაზღვრება მომსახურების ფასი?</summary><p class="faq-answer">შეთავაზება მზადდება სივრცის ფართობის, სამუშაოს მოცულობისა და მომსახურების სიხშირის მიხედვით. საბოლოო თანხას დეტალების შეთანხმების შემდეგ დაგიდასტურებთ.</p></details>
 					<details class="faq-item"><summary>შესაძლებელია ერთჯერადი და რეგულარული დასუფთავება?</summary><p class="faq-answer">დიახ. შეგიძლიათ მოითხოვოთ ერთჯერადი მომსახურება ან თქვენთვის მოსახერხებელი რეგულარული გრაფიკი.</p></details>
 					<details class="faq-item"><summary>როგორ გავიგო, ემსახურებით თუ არა ჩემს მისამართს?</summary><p class="faq-answer">მოთხოვნაში მიუთითეთ ობიექტის მისამართი და წინასწარ დაგიდასტურებთ, შესაძლებელია თუ არა მომსახურება თქვენს ლოკაციაზე.</p></details>
-					<details class="faq-item"><summary>რა ინფორმაცია დავტოვო შეთავაზების მისაღებად?</summary><p class="faq-answer">მიუთითეთ სასურველი სერვისი, ფართობი, მისამართი და სასურველი სიხშირე. მოთხოვნის დამგეგმავი ამ დეტალებს ფორმაში ავტომატურად გადაიტანს.</p></details>
+					<details class="faq-item"><summary>რა ინფორმაცია დავტოვო შეთავაზების მისაღებად?</summary><p class="faq-answer">მიუთითეთ სასურველი სერვისი, მისამართი და სამუშაოს მოცულობა, რათა შესაბამისი შეთავაზება მოგიმზადოთ.</p></details>
 				</div>
 			</div>
 		</section>
@@ -465,17 +454,6 @@
 					<h2>თქვენი სივრცისთვის სწორი სერვისი აქ იწყება.</h2>
 					<p>შეავსეთ მოკლე ფორმა და ელფოსტის აპში მომზადებული მოთხოვნა გაიხსნება. მოგვწერეთ, რა სჭირდება თქვენს ოფისს.</p>
 					<div class="contact-points"><span><b>✓</b> მომსახურება ბიზნესსივრცეებისთვის</span><span><b>✓</b> გრაფიკის შეთანხმება წინასწარ</span><span><b>✓</b> ინდივიდუალური შეთავაზება</span></div>
-					<div class="quote-planner" id="quote-planner">
-						<h3>მოთხოვნის დამგეგმავი</h3>
-						<p>მიუთითეთ რამდენიმე დეტალი — ეს ზუსტ ფასს არ ითვლის, მაგრამ მოთხოვნის შევსებას გაგიმარტივებთ.</p>
-						<div class="planner-fields">
-							<div class="planner-field planner-field-wide"><label for="planner-service">მომსახურება</label><select id="planner-service"><option value="">აირჩიეთ მომსახურება</option><option value="ოფისის დასუფთავება">ოფისის დასუფთავება</option><option value="ვიტრაჟებისა და შუშის წმენდა">ვიტრაჟებისა და შუშის წმენდა</option><option value="ხალიჩების წმენდა">ხალიჩების წმენდა</option><option value="გენერალური დასუფთავება">გენერალური დასუფთავება</option><option value="სხვა / კონსულტაცია">სხვა / კონსულტაცია</option></select></div>
-							<div class="planner-field"><label for="planner-area">ფართობი (მ²)</label><input id="planner-area" type="number" min="1" max="100000" inputmode="numeric" placeholder="მაგ. 120"></div>
-							<div class="planner-field"><label for="planner-frequency">სიხშირე</label><select id="planner-frequency"><option value="">ჯერ არ ვიცი</option><option value="ერთჯერადად">ერთჯერადად</option><option value="ყოველდღიურად">ყოველდღიურად</option><option value="კვირაში ერთხელ">კვირაში ერთხელ</option><option value="თვეში ერთხელ">თვეში ერთხელ</option></select></div>
-							<div class="planner-field planner-field-wide"><label for="planner-address">ობიექტის მისამართი</label><input id="planner-address" type="text" autocomplete="street-address" placeholder="ქუჩა, უბანი, ქალაქი"></div>
-						</div>
-						<button class="button button-light" id="planner-fill" type="button">დეტალების დამატება მოთხოვნაში <span aria-hidden="true">↓</span></button>
-					</div>
 				</div>
 				<form class="contact-form" id="contact-form">
 					<div class="field"><label for="name">სახელი / კომპანია</label><input id="name" name="name" autocomplete="organization" placeholder="თქვენი სახელი ან კომპანია" required></div>
@@ -539,35 +517,6 @@
 		if (serviceNames[requestedService]) document.querySelector('#service').value = serviceNames[requestedService];
 		const contactForm = document.querySelector('#contact-form');
 		const formStatus = document.querySelector('#form-status');
-		document.querySelector('#planner-fill').addEventListener('click', () => {
-			const serviceSelect = document.querySelector('#planner-service');
-			const serviceValue = serviceSelect.value;
-			if (!serviceValue) {
-				serviceSelect.focus();
-				serviceSelect.setCustomValidity(window.siteLanguage === 'en' ? 'Please choose a service first.' : 'ჯერ აირჩიეთ მომსახურება.');
-				serviceSelect.reportValidity();
-				serviceSelect.addEventListener('change', () => serviceSelect.setCustomValidity(''), { once: true });
-				return;
-			}
-			const english = window.siteLanguage === 'en';
-			const details = document.querySelector('#details');
-			const area = document.querySelector('#planner-area').value.trim();
-			const frequency = document.querySelector('#planner-frequency').value;
-			const address = document.querySelector('#planner-address').value.trim();
-			const serviceLabel = serviceSelect.selectedOptions[0].textContent;
-			const frequencyLabel = document.querySelector('#planner-frequency').selectedOptions[0].textContent;
-			const lines = [
-				`${english ? 'Service' : 'მომსახურება'}: ${serviceLabel}`,
-				area && `${english ? 'Area' : 'ფართობი'}: ${area} m²`,
-				frequency && `${english ? 'Frequency' : 'სიხშირე'}: ${frequencyLabel}`,
-				address && `${english ? 'Address' : 'მისამართი'}: ${address}`
-			].filter(Boolean);
-			document.querySelector('#service').value = serviceValue;
-			details.value = [details.value.trim(), lines.join('\n')].filter(Boolean).join('\n\n');
-			details.dispatchEvent(new Event('input', { bubbles: true }));
-			document.querySelector('#contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
-			window.setTimeout(() => document.querySelector('#name').focus({ preventScroll: true }), 350);
-		});
 		contactForm.addEventListener('submit', async (event) => {
 			event.preventDefault();
 			const submitButton = contactForm.querySelector('button[type="submit"]');
