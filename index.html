@@ -145,7 +145,7 @@
 		.faq-answer { margin: 0; padding: 0 20px 18px; color: var(--muted); font-size: 13px; line-height: 1.8; }
 
 		.contact { padding-block: 88px; color: #fff; background: var(--ink); }
-		.contact-layout { display: grid; grid-template-columns: .85fr 1fr; gap: clamp(40px, 9vw, 115px); align-items: start; }
+		.contact-layout { display: grid; grid-template-columns: 1fr; gap: clamp(40px, 9vw, 115px); align-items: start; }
 		.contact-copy .eyebrow { color: #7ed8ff; }
 		.contact-copy h2 { max-width: 470px; margin: 16px 0; color: #fff; font-size: clamp(31px, 4vw, 46px); line-height: 1.3; }
 		.contact-copy > p { max-width: 430px; color: #c1d5df; font-size: 14px; line-height: 1.9; }
@@ -171,6 +171,17 @@
 		.location-link { color: #fff; font-size: 12px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 		.location-map { min-width: 0; overflow: hidden; border-radius: 12px; background: #e8f6fc; }
 		.location-map iframe { display: block; width: 100%; height: 270px; border: 0; }
+		.quote-dialog { width: min(560px, calc(100vw - 28px)); max-width: none; max-height: min(90dvh, 820px); overflow: visible; padding: 0; border: 0; border-radius: 20px; color: var(--ink); background: transparent; }
+		.quote-dialog[open] { animation: quote-dialog-in .32s cubic-bezier(.2,.75,.25,1) both; }
+		.quote-dialog::backdrop { background: rgba(8,29,42,.62); backdrop-filter: blur(5px); }
+		.quote-dialog-panel { position: relative; max-height: min(90dvh, 820px); overflow: auto; border: 1px solid rgba(255,255,255,.65); border-radius: 20px; background: white; box-shadow: 0 30px 90px rgba(4,26,39,.3); }
+		.quote-dialog-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 25px 26px 12px; }
+		.quote-dialog-kicker { color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; }
+		.quote-dialog-heading h2 { margin: 7px 0 0; color: var(--ink); font-size: 23px; line-height: 1.35; }
+		.quote-dialog-close { display: grid; width: 40px; height: 40px; flex: 0 0 40px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: #f6fafc; font-size: 23px; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+		.quote-dialog-close:hover { transform: rotate(90deg); background: #e9f5fa; }
+		.quote-dialog .contact-form { border: 0; border-radius: 0 0 20px 20px; box-shadow: none; }
+		@keyframes quote-dialog-in { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
 		.footer { color: #d4e4eb; background: var(--ink-deep); }
 		.footer-main { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding-block: 29px; }
@@ -455,15 +466,8 @@
 					<h2>თქვენი სივრცისთვის სწორი სერვისი აქ იწყება.</h2>
 					<p>შეავსეთ მოკლე ფორმა და ელფოსტის აპში მომზადებული მოთხოვნა გაიხსნება. მოგვწერეთ, რა სჭირდება თქვენს ოფისს.</p>
 					<div class="contact-points"><span><b>✓</b> მომსახურება ბიზნესსივრცეებისთვის</span><span><b>✓</b> გრაფიკის შეთანხმება წინასწარ</span><span><b>✓</b> ინდივიდუალური შეთავაზება</span></div>
+					<a class="button button-light quote-trigger" href="#quote-dialog">მოთხოვნის შევსება <span class="arrow" aria-hidden="true">↗</span></a>
 				</div>
-				<form class="contact-form" id="contact-form">
-					<div class="field"><label for="name">სახელი / კომპანია</label><input id="name" name="name" autocomplete="organization" placeholder="თქვენი სახელი ან კომპანია" required></div>
-					<div class="field"><label for="phone">ტელეფონის ნომერი</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+995 5XX XX XX XX" required></div>
-					<div class="field field-wide"><label for="service">სასურველი მომსახურება</label><select id="service" name="service" required><option value="" disabled selected>აირჩიეთ მომსახურება</option><option>ოფისის დასუფთავება</option><option>ვიტრაჟებისა და შუშის წმენდა</option><option>ხალიჩების წმენდა</option><option>გენერალური დასუფთავება</option><option>სხვა / კონსულტაცია</option></select></div>
-					<div class="field field-wide"><label for="details">დამატებითი ინფორმაცია</label><textarea id="details" name="details" placeholder="სივრცის ზომა, მისამართი ან სასურველი დრო"></textarea></div>
-					<div class="field field-wide"><button class="button button-primary" type="submit">მოთხოვნის გაგზავნა <span class="arrow" aria-hidden="true">↗</span></button></div>
-					<p class="form-hint" id="form-status" role="status" aria-live="polite">თქვენი მოთხოვნა პირდაპირ კომპანიის სერვერზე გაიგზავნება.</p>
-				</form>
 			</div>
 			<div class="wrap location-card">
 				<div class="location-copy">
@@ -475,6 +479,22 @@
 				<div class="location-map"><iframe src="https://www.google.com/maps?q=41.7955404,44.7490748&amp;output=embed" title="რუკა: დემეტრე თავდადებულის ქუჩა, თბილისი" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
 			</div>
 		</section>
+		<dialog class="quote-dialog" id="quote-dialog" aria-labelledby="quote-dialog-title">
+			<div class="quote-dialog-panel">
+				<div class="quote-dialog-heading">
+					<div><span class="quote-dialog-kicker">სწრაფი მოთხოვნა</span><h2 id="quote-dialog-title">მოითხოვეთ შეთავაზება</h2></div>
+					<button class="quote-dialog-close" id="quote-dialog-close" type="button" aria-label="ფანჯრის დახურვა">×</button>
+				</div>
+				<form class="contact-form" id="contact-form">
+					<div class="field"><label for="name">სახელი / კომპანია</label><input id="name" name="name" autocomplete="organization" placeholder="თქვენი სახელი ან კომპანია" required></div>
+					<div class="field"><label for="phone">ტელეფონის ნომერი</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+995 5XX XX XX XX" required></div>
+					<div class="field field-wide"><label for="service">სასურველი მომსახურება</label><select id="service" name="service" required><option value="" disabled selected>აირჩიეთ მომსახურება</option><option>ოფისის დასუფთავება</option><option>ვიტრაჟებისა და შუშის წმენდა</option><option>ხალიჩების წმენდა</option><option>გენერალური დასუფთავება</option><option>სხვა / კონსულტაცია</option></select></div>
+					<div class="field field-wide"><label for="details">დამატებითი ინფორმაცია</label><textarea id="details" name="details" placeholder="სივრცის ზომა, მისამართი ან სასურველი დრო"></textarea></div>
+					<div class="field field-wide"><button class="button button-primary" type="submit">მოთხოვნის გაგზავნა <span class="arrow" aria-hidden="true">↗</span></button></div>
+					<p class="form-hint" id="form-status" role="status" aria-live="polite">თქვენი მოთხოვნა პირდაპირ კომპანიის სერვერზე გაიგზავნება.</p>
+				</form>
+			</div>
+		</dialog>
 	</main>
 
 	<footer class="footer">
@@ -508,6 +528,28 @@
 		}));
 
 		document.querySelector('#year').textContent = new Date().getFullYear();
+		const quoteDialog = document.querySelector('#quote-dialog');
+		document.querySelectorAll('a.button[href="#contact"], a.text-link[href="#contact"], a.quote-trigger').forEach((link) => {
+			link.addEventListener('click', (event) => {
+				event.preventDefault();
+				const serviceCard = link.closest('.service-card');
+				if (serviceCard) {
+					const serviceHeading = serviceCard.querySelector('h3')?.textContent.trim();
+					const serviceSelect = document.querySelector('#service');
+					const matchingOption = [...serviceSelect.options].find((option) => option.textContent.trim() === serviceHeading);
+					if (matchingOption) serviceSelect.value = matchingOption.value;
+				}
+				if (typeof quoteDialog.showModal === 'function') quoteDialog.showModal();
+				else quoteDialog.setAttribute('open', '');
+			});
+		});
+		document.querySelector('#quote-dialog-close').addEventListener('click', () => {
+			if (typeof quoteDialog.close === 'function') quoteDialog.close();
+			else quoteDialog.removeAttribute('open');
+		});
+		quoteDialog.addEventListener('click', (event) => {
+			if (event.target === quoteDialog) quoteDialog.close();
+		});
 		const requestedService = new URLSearchParams(location.search).get('service');
 		const serviceNames = {
 			office: 'ოფისის დასუფთავება',
