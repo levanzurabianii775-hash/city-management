@@ -31,9 +31,9 @@
 			'.services .section-heading p': ['Choose the service you need or tell us about your space. Together, we will plan the right approach.'],
 			'.service-photo img': [
 				'A bright, well-kept office space',
-				'Professional window and glass cleaning',
-				'A clean interior with a soft carpet',
-				'A clean, organized room'
+				'A specialist cleaning a glass surface',
+				'Vacuuming a carpet',
+				'Floor mopping during a deep clean'
 			],
 			'.service-content h3': ['Office cleaning', 'Window and glass cleaning', 'Carpet cleaning', 'General cleaning'],
 			'.service-content p': [
